@@ -27,7 +27,7 @@ We introduce a full pipeline that goes from reinforcement learning trajectories 
 4. **Dependency Matrices**  
    - Per winning episode, capture temporal relations among key events.  
 
-5. **Clustering & Analysis**  
+5. **Unsupervised Machine Learning**  
    - **Hasse-based clustering (ours)**: consensus + high coverage combinations.  
    - **Baselines**: DBSCAN, hierarchical clustering.  
    - Robustness: format-preserving corruption of 10% episodes.  
@@ -41,75 +41,121 @@ We introduce a full pipeline that goes from reinforcement learning trajectories 
 ## 📂 Repository Layout
 
 ```plaintext
-game-rl-hasse/
+rl-hasse-clustering/
 ├─ README.md
-├─ .gitignore
+├─ LICENSE
 ├─ requirements.txt
+├─ paper_link.txt
+├─ .gitignore
 │
-├─ game/                   # Environments, assets, utils
-│  ├─ v2/                  # Game v2 env + reward shaping
-│  └─ v3/                  # Game v3 env + reward shaping
-│
-├─ training/               # PPO training + checkpoints
-│  ├─ train_ppo.py
-│  ├─ continue_training.py
-│  ├─ eval_policy.py
-│  └─ checkpoints/
-│     ├─ v2/
-│     └─ v3/
-│
-├─ data/                   # Raw + processed logs
+├─ game/
 │  ├─ v2/
-│  │  ├─ raw/
-│  │  ├─ processed/
-│  │  └─ corrupted/
+│  │  ├─ projectGame.py
+│  │  ├─ projectGame2.py
+│  │  ├─ rl_env.py
+│  │  ├─ train_agent.py
+│  │  ├─ train_continue.py
+│  │  ├─ utils.py
+│  │  ├─ interactable.py
+│  │  ├─ item.py
+│  │  ├─ player.py
+│  │  ├─ coin.py
+│  │  ├─ assets/
+│  │  │  ├─ tiles/      # garden_maze.tmx, .tsx, .json
+│  │  │  └─ sprites/    # doors, keys, rock, explosive, coin, openDoor, player, cb.png
+│  │  └─ game_data/
+│  │     ├─ screenshot1.png
+│  │     ├─ legend1.png
+│  │     └─ player_data.json
+│  │
 │  └─ v3/
-│     ├─ raw/
-│     ├─ processed/
-│     └─ corrupted/
+│     ├─ projectGame3.py
+│     ├─ rl_env.py
+│     ├─ train_agent.py
+│     ├─ train_continue.py
+│     ├─ utils.py
+│     ├─ interactable.py
+│     ├─ item.py
+│     ├─ player.py
+│     ├─ coin.py
+│     ├─ assets/
+│     │  ├─ tiles/      # garden_maze.tmx, .tsx, .json
+│     │  └─ sprites/    # doors, keys, rock, explosive, coin, openDoor, player, cb.png
+│     └─ game_data/
+│        ├─ screenshot1.png
+│        ├─ legend1.png
+│        └─ player_data.json
 │
-├─ preprocessing/          # Cleaning logs, seqOfSets, corruption
-│  ├─ seq_of_sets.py
-│  ├─ corrupt_data.py
-│  ├─ sort_by_outcome.py
-│  └─ notebooks/
+├─ training/
+│  ├─ checkpoints/
+│  │  ├─ v2/
+│  │  │  ├─ ppo_project_gamev4.zip
+│  │  │  ├─ ppo_project_gamev5.zip
+│  │  │  └─ runs/ (final_run_v4.json, final_run_v5.json)
+│  │  └─ v3/
+│  │     ├─ ppo_project_gamev1.zip
+│  │     ├─ ppo_project_gamev5.zip
+│  │     └─ runs/ (final_runv1.json)
+│
+├─ data/
+│  ├─ v2/
+│  │  ├─ raw/        (final_run.json)
+│  │  ├─ processed/  (sequence_of_sets_formatted.csv, sequence_of_sets_formatted_Won.csv)
+│  │  └─ corrupted/  (corrupted_medium_10pct.csv)
+│  └─ v3/
+│     ├─ raw/        (final_run.json)
+│     ├─ processed/  (sequence_of_sets_formatted.csv, sequence_of_sets_formatted_Won.csv)
+│     └─ corrupted/  (corrupted_medium_10pct.csv)
+│
+├─ preprocessing/
+│  ├─ v2/notebooks/
+│  │  ├─ removeTheMove.ipynb
+│  │  ├─ removeTheSelectItem.ipynb
+│  │  ├─ filterFailedINteractions.ipynb
+│  │  ├─ seqOfSets.ipynb
+│  │  └─ corruptData.ipynb
+│  └─ v3/notebooks/
 │     ├─ removeTheMove.ipynb
 │     ├─ removeTheSelectItem.ipynb
-│     ├─ filterFailedInteractions.ipynb
+│     ├─ filterFailedINteractions.ipynb
+│     ├─ seqOfSets.ipynb
 │     └─ corruptData.ipynb
 │
-├─ dependency_matrices/    # Build M_c matrices
-│  ├─ new_alg_v4.py
-│  ├─ outputs/
-│  │  ├─ v2/
-│  │  └─ v3/
-│  └─ notebooks/
-│     └─ newAlgV4_demo.ipynb
-│
-├─ clustering/             # Clustering algorithms
-│  ├─ hasse/
-│  │  ├─ hasse_clustering.py
-│  │  ├─ consensus_and_coverage.py
-│  │  └─ figures/
-│  ├─ dbscan_clustering.py
-│  ├─ hierarchical_clustering.py
-│  ├─ custom_graph_clustering.py
-│  └─ outputs/
-│     ├─ v2/
-│     └─ v3/
-│
-├─ figures/                # Screenshots + clustering figures
+├─ dependency_matrices/
 │  ├─ v2/
+│  │  ├─ Alg_Most_Rel_W.py
+│  │  ├─ newAlgV4.py
+│  │  └─ outputs/
+│  │     ├─ M_c_matrices_e1_e2_e5_e6_game_won.json
+│  │     └─ M_c_matrices_e1_e2_e5_e6_corrupted10pct.json
 │  └─ v3/
+│     ├─ Alg_Most_Rel_W.py
+│     ├─ newAlgV4.py
+│     └─ outputs/
+│        ├─ M_c_matrices_e1_e2_e5_e6_e11_game_won.json
+│        └─ M_c_matrices_e1_e2_e5_e6_e11_corrupted10pct.json
 │
-└─ paper_link.txt          # Link to the published paper
-
-
-
-> Note: *Game v2 with move* is intentionally excluded.
-
+└─ clustering/
+   ├─ v2/
+   │  ├─ dbscan.py
+   │  ├─ custom_clustering.py
+   │  ├─ graphG.py
+   │  ├─ posets_n4.json
+   │  └─ hasse/
+   │     ├─ hasse.py
+   │     ├─ graphG_hasse.py
+   │     ├─ hasse_diagrams_n4.json
+   │     └─ hasse_diagrams_n5.json
+   └─ v3/
+      ├─ dbscan.py
+      ├─ custom_clustering.py
+      ├─ graphG.py
+      ├─ posets_n5.json
+      └─ hasse/
+         ├─ hasse.py
+         ├─ graphG_hasse.py
+         └─ hasse_diagrams_n5.json
 ---
-
 ## ⚙️ Requirements
 
 - Python 3.10+  

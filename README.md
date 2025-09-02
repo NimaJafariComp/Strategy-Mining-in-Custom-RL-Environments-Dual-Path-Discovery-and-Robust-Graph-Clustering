@@ -40,27 +40,70 @@ We introduce a full pipeline that goes from reinforcement learning trajectories 
 
 ## 📂 Repository Layout
 
-
-
+```plaintext
 game-rl-hasse/
 ├─ README.md
 ├─ .gitignore
+├─ requirements.txt
 │
-├─ game/ # Environments, assets, utils
-│ ├─ v2/ # Game v2 env + reward shaping
-│ └─ v3/ # Game v3 env + reward shaping
+├─ game/                   # Environments, assets, utils
+│  ├─ v2/                  # Game v2 env + reward shaping
+│  └─ v3/                  # Game v3 env + reward shaping
 │
-├─ training/ # PPO training + checkpoints
+├─ training/               # PPO training + checkpoints
+│  ├─ train_ppo.py
+│  ├─ continue_training.py
+│  ├─ eval_policy.py
+│  └─ checkpoints/
+│     ├─ v2/
+│     └─ v3/
 │
-├─ data/ # Raw + processed logs
-│ ├─ v2/
-│ └─ v3/
+├─ data/                   # Raw + processed logs
+│  ├─ v2/
+│  │  ├─ raw/
+│  │  ├─ processed/
+│  │  └─ corrupted/
+│  └─ v3/
+│     ├─ raw/
+│     ├─ processed/
+│     └─ corrupted/
 │
-├─ preprocessing/ # Cleaning logs, seqOfSets, corruption
-├─ dependency_matrices/ # newAlgV4 + outputs
-├─ clustering/ # Hasse, DBSCAN, Hierarchical, Custom
-├─ figures/ # Screenshots + clustering graphs
-└─ paper_link.txt # Contains link to published paper
+├─ preprocessing/          # Cleaning logs, seqOfSets, corruption
+│  ├─ seq_of_sets.py
+│  ├─ corrupt_data.py
+│  ├─ sort_by_outcome.py
+│  └─ notebooks/
+│     ├─ removeTheMove.ipynb
+│     ├─ removeTheSelectItem.ipynb
+│     ├─ filterFailedInteractions.ipynb
+│     └─ corruptData.ipynb
+│
+├─ dependency_matrices/    # Build M_c matrices
+│  ├─ new_alg_v4.py
+│  ├─ outputs/
+│  │  ├─ v2/
+│  │  └─ v3/
+│  └─ notebooks/
+│     └─ newAlgV4_demo.ipynb
+│
+├─ clustering/             # Clustering algorithms
+│  ├─ hasse/
+│  │  ├─ hasse_clustering.py
+│  │  ├─ consensus_and_coverage.py
+│  │  └─ figures/
+│  ├─ dbscan_clustering.py
+│  ├─ hierarchical_clustering.py
+│  ├─ custom_graph_clustering.py
+│  └─ outputs/
+│     ├─ v2/
+│     └─ v3/
+│
+├─ figures/                # Screenshots + clustering figures
+│  ├─ v2/
+│  └─ v3/
+│
+└─ paper_link.txt          # Link to the published paper
+
 
 
 > Note: *Game v2 with move* is intentionally excluded.

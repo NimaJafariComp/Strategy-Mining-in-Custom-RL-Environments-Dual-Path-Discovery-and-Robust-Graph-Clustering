@@ -1,10 +1,8 @@
-the paper instead of including LaTeX files.
-
 # RL-Hasse-Clustering
 
 This repository contains the code and data for our paper:  
 **“From Reinforcement Learning Trajectories to Strategy Posets: Hasse-based Clustering of Dependency Matrices.”**  
-📄 [Read the paper here](https://link-to-your-paper.com)  
+📄 [Read the paper here](https://link-to-your-paper.com)
 
 We introduce a full pipeline that goes from reinforcement learning trajectories in custom puzzle environments to interpretable procedural strategies using a novel **Hasse diagram–based clustering algorithm**. We compare this to standard unsupervised learning (DBSCAN, hierarchical clustering) and test robustness under controlled data corruption.
 
@@ -20,17 +18,21 @@ We introduce a full pipeline that goes from reinforcement learning trajectories 
 
 2. **Reinforcement Learning**  
    - PPO (Stable-Baselines3) with reward shaping + curriculum.  
+   - Train from scratch using files under `game/v2/` or `game/v3/`.  
+   - Alternatively, use provided training runs and checkpoints under `training/checkpoints/`.  
 
-3. **Data Mining**  
-   - Clean logs → symbolic event codes → infinity-ratio analysis.  
+3. **Data Mining (Preprocessing)**  
+   - Clean logs, filter events, convert to symbolic sequences (`seqOfSets`).  
+   - Implemented in Jupyter notebooks under `preprocessing/`.  
 
 4. **Dependency Matrices**  
-   - Per winning episode, capture temporal relations among key events.  
+   - Built with `newAlgV4.py` under `dependency_matrices/v2/` or `dependency_matrices/v3/`.  
+   - Requires processed sequence CSVs from preprocessing.  
 
-5. **Unsupervised Machine Learning**  
-   - **Hasse-based clustering (ours)**: consensus + high coverage combinations.  
-   - **Baselines**: DBSCAN, hierarchical clustering.  
-   - Robustness: format-preserving corruption of 10% episodes.  
+5. **Unsupervised Machine Learning (Clustering)**  
+   - **Hasse-based clustering (ours)**: consensus + coverage filtering.  
+   - **Baselines**: DBSCAN, hierarchical, custom clustering.  
+   - Scripts are under `clustering/v2/` and `clustering/v3/`.  
 
 6. **Findings**  
    - Hasse clustering is more accurate and robust: recovers true strategies even with corruption.  
@@ -79,7 +81,7 @@ rl-hasse-clustering/
 │  │  │  ├─ sequence_of_sets_formatted.csv
 │  │  │  └─ sequence_of_sets_formatted_Won.csv
 │  │  └─ raw/
-│  │     └─ final_run.json   
+│  │     └─ final_run.json
 │  └─ v3/
 │     ├─ corrupted/
 │     │  └─ corrupted_medium_10pct.csv
@@ -87,7 +89,7 @@ rl-hasse-clustering/
 │     │  ├─ sequence_of_sets_formatted.csv
 │     │  └─ sequence_of_sets_formatted_Won.csv
 │     └─ raw/
-│        └─ final_run.json   
+│        └─ final_run.json
 │
 ├─ dependency_matrices/
 │  ├─ v2/
@@ -170,73 +172,74 @@ rl-hasse-clustering/
 │     └─ seqOfSets.ipynb
 │
 └─ training/
-   ├─ checkpoints/
-     ├─ v2/
-     │  ├─ final_run_v4.json
-     │  ├─ final_run_v5.json
-     │  ├─ ppo_project_gamev4.zip
-     │  └─ ppo_project_gamev5.zip
-     │   
-     └─ v3/
-        ├─ final_runv1.json
-        └─ ppo_project_gamev1.zip
-        
----
-## ⚙️ Requirements
+   └─ checkpoints/
+      ├─ v2/
+      │  ├─ final_run_v4.json
+      │  ├─ final_run_v5.json
+      │  ├─ ppo_project_gamev4.zip
+      │  └─ ppo_project_gamev5.zip
+      └─ v3/
+         ├─ final_runv1.json
+         └─ ppo_project_gamev1.zip
+```
+⚙️ Requirements
+```
+Python 3.10+
 
-- Python 3.10+  
-- [Stable-Baselines3](https://github.com/DLR-RM/stable-baselines3)  
-- [Gym / Gymnasium](https://gymnasium.farama.org/)  
-- Pygame, pytmx (map rendering)  
-- Numpy, Pandas, Scipy  
-- Scikit-learn (DBSCAN, hierarchical)  
-- NetworkX (graph + Hasse analysis)  
-- Matplotlib  
+Stable-Baselines3
 
+Gym / Gymnasium
+
+Pygame, pytmx (map rendering)
+
+Numpy, Pandas, Scipy
+
+Scikit-learn (DBSCAN, hierarchical)
+
+NetworkX (graph + Hasse analysis)
+
+Matplotlib
+
+Jupyter Notebook (for preprocessing scripts)
+```
 Install dependencies with:
-
-```bash
+```
+bash
+Copy code
 pip install -r requirements.txt
 ```
-▶️ Quick Start
-1. Train PPO agent
-# Train Game v2
-```bash
-python training/train_ppo.py --env v2 --timesteps 5000000
+▶️ Usage Notes
 ```
-# Train Game v3
-```bash
-python training/train_ppo.py --env v3 --timesteps 5000000
-```
-2. Preprocess logs
-```bash
-python preprocessing/seq_of_sets.py \
-  --input data/v2/raw/final_run.json \
-  --output data/v2/processed/sequence_of_sets_formatted.csv
-```
-4. Build dependency matrices
-```bash
-python dependency_matrices/new_alg_v4.py \
-  --input data/v2/processed/sequence_of_sets_formatted_won.csv \
-  --output dependency_matrices/outputs/v2/M_c_matrices_game_won.json
-```
-6. Run clustering
-# Hasse clustering (ours)
-```bash
-python clustering/hasse/hasse_clustering.py --env v2
-```
-# DBSCAN
-```bash
-python clustering/dbscan_clustering.py --env v2 --eps 2.0
-```
-# Hierarchical
-```bash
-python clustering/hierarchical_clustering.py --env v2 --threshold 2.5
-```
-📊 Results (Summary)
+Most scripts are interdependent:
 
+To train from scratch, bring together the files in game/v2 (or game/v3) with PPO training scripts (train_agent.py, train_continue.py).
+
+To skip training, use pre-generated logs/checkpoints under training/checkpoints/ or raw/processed data under data/.
+
+To run preprocessing, use the Jupyter notebooks under preprocessing/ (they clean raw logs and produce sequence CSVs).
+
+To generate dependency matrices, run newAlgV4.py under dependency_matrices/. These expect processed sequences as input.
+
+To run clustering, first ensure dependency matrices are generated. Then run the clustering scripts under clustering/v2 or clustering/v3.
+
+Pipeline order (from scratch):
+
+Train agent (game/v2/train_agent.py or game/v3/train_agent.py) → produces logs.
+
+Preprocess logs (preprocessing/v*/notebooks/seqOfSets.ipynb) → produces sequences.
+
+Build dependency matrices (dependency_matrices/v*/newAlgV4.py) → produces M_c JSONs.
+
+Run clustering (clustering/v*/density based clustering.py, clustering/v*/new clustering.py, clustering/v*/hasse/hasse clustering.py).
+
+If you only want to experiment with clustering, you can use the precomputed data in data/ and dependency_matrices/outputs/.
+```
+
+📊 Results (Summary)
+```
 Game v2: Hasse finds one consensus strategy (door). DBSCAN/hierarchical split into noisy sub-variants.
 
 Game v3: Hasse separates both winning strategies (door + treasure). DBSCAN/hierarchical show variants but mis-handle incidental pickups.
 
 Robustness: With 10% corrupted sequences, Hasse consensus unchanged. Distance-based methods fragment or degenerate.
+```

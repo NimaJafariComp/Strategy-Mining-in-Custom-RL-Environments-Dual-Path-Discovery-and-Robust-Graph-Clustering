@@ -40,16 +40,72 @@ We introduce a full pipeline that goes from reinforcement learning trajectories 
 
 ## 📂 Repository Layout
 
+> Note: some large raw data files were compressed into `.zip` archives for upload.
+
 ```plaintext
 rl-hasse-clustering/
-├─ README.md
 ├─ LICENSE
-├─ requirements.txt
 ├─ paper_link.txt
-├─ .gitignore
+├─ README.md
+├─ requirements.txt
+├─ .git
+│
+├─ clustering/
+│  ├─ v2/
+│  │  ├─ density based clustering.py
+│  │  ├─ graphG.py
+│  │  ├─ new clustering.py
+│  │  ├─ posets_n4.json
+│  │  └─ hasse/
+│  │     ├─ graphG_hasse.py
+│  │     ├─ hasse clustering.py
+│  │     ├─ hasse_diagrams_n4.json
+│  │     └─ hasse_diagrams_n5.json
+│  └─ v3/
+│     ├─ density based clustering.py
+│     ├─ graphG.py
+│     ├─ new clustering.py
+│     ├─ posets_n5.json
+│     └─ hasse/
+│        ├─ graphG_hasse.py
+│        ├─ hasse clustering.py
+│        └─ hasse_diagrams_n5.json
+│
+├─ data/
+│  ├─ v2/
+│  │  ├─ corrupted/
+│  │  │  └─ corrupted_medium_10pct.csv
+│  │  ├─ processed/
+│  │  │  ├─ sequence_of_sets_formatted.csv
+│  │  │  └─ sequence_of_sets_formatted_Won.csv
+│  │  └─ raw/
+│  │     └─ final_run.json   # (compressed in .zip for upload if large)
+│  └─ v3/
+│     ├─ corrupted/
+│     │  └─ corrupted_medium_10pct.csv
+│     ├─ processed/
+│     │  ├─ sequence_of_sets_formatted.csv
+│     │  └─ sequence_of_sets_formatted_Won.csv
+│     └─ raw/
+│        └─ final_run.json   # (compressed in .zip for upload if large)
+│
+├─ dependency_matrices/
+│  ├─ v2/
+│  │  ├─ Alg_Most_Rel_W.py
+│  │  ├─ newAlgV4.py
+│  │  └─ outputs/
+│  │     ├─ M_c_matrices_diagonal_1 ('e1', 'e2', 'e5', 'e6') corrupted10%.json
+│  │     └─ M_c_matrices_diagonal_1 ('e1', 'e2', 'e5', 'e6') game_won.json
+│  └─ v3/
+│     ├─ Alg_Most_Rel_W.py
+│     ├─ newAlgV4.py
+│     └─ outputs/
+│        ├─ M_c_matrices_diagonal_1 ('e1', 'e2', 'e5', 'e6', 'e11') corrupted10%.json
+│        └─ M_c_matrices_diagonal_1 ('e1', 'e2', 'e5', 'e6', 'e11') game_won.json
 │
 ├─ game/
 │  ├─ v2/
+│  │  ├─ alg 5 python.py
 │  │  ├─ projectGame.py
 │  │  ├─ projectGame2.py
 │  │  ├─ rl_env.py
@@ -60,13 +116,20 @@ rl-hasse-clustering/
 │  │  ├─ item.py
 │  │  ├─ player.py
 │  │  ├─ coin.py
-│  │  ├─ assets/
-│  │  │  ├─ tiles/      # garden_maze.tmx, .tsx, .json
-│  │  │  └─ sprites/    # doors, keys, rock, explosive, coin, openDoor, player, cb.png
+│  │  ├─ garden_maze.json
+│  │  ├─ garden_maze.tmx
+│  │  ├─ garden_maze.tsx
+│  │  ├─ key.png / key_blue.png / key_green.png / key_purple.png / key_red.png
+│  │  ├─ blue_door.png / green_door.png / purple_door.png / red_door.png
+│  │  ├─ explosive.png / rock.png / coin_image.png / openDoor.png / cb.png
+│  │  ├─ matrixfinder5.java
+│  │  ├─ ppo_project_gamev4.zip
+│  │  ├─ ppo_project_gamev5.zip
 │  │  └─ game_data/
-│  │     ├─ screenshot1.png
+│  │     ├─ final_run_v5.json
 │  │     ├─ legend1.png
-│  │     └─ player_data.json
+│  │     ├─ player_data.json
+│  │     └─ screenshot1.png
 │  │
 │  └─ v3/
 │     ├─ projectGame3.py
@@ -78,83 +141,46 @@ rl-hasse-clustering/
 │     ├─ item.py
 │     ├─ player.py
 │     ├─ coin.py
-│     ├─ assets/
-│     │  ├─ tiles/      # garden_maze.tmx, .tsx, .json
-│     │  └─ sprites/    # doors, keys, rock, explosive, coin, openDoor, player, cb.png
+│     ├─ garden_maze.json
+│     ├─ garden_maze.tmx
+│     ├─ garden_maze.tsx
+│     ├─ key.png / key_blue.png / key_green.png / key_purple.png / key_red.png
+│     ├─ blue_door.png / green_door.png / purple_door.png / red_door.png
+│     ├─ explosive.png / rock.png / coin_image.png / openDoor.png / cb.png
+│     ├─ ppo_project_gamev1.zip
+│     ├─ ppo_project_gamev5.zip
 │     └─ game_data/
-│        ├─ screenshot1.png
+│        ├─ final_runv1.json
 │        ├─ legend1.png
-│        └─ player_data.json
-│
-├─ training/
-│  ├─ checkpoints/
-│  │  ├─ v2/
-│  │  │  ├─ ppo_project_gamev4.zip
-│  │  │  ├─ ppo_project_gamev5.zip
-│  │  │  └─ runs/ (final_run_v4.json, final_run_v5.json)
-│  │  └─ v3/
-│  │     ├─ ppo_project_gamev1.zip
-│  │     ├─ ppo_project_gamev5.zip
-│  │     └─ runs/ (final_runv1.json)
-│
-├─ data/
-│  ├─ v2/
-│  │  ├─ raw/        (final_run.json)
-│  │  ├─ processed/  (sequence_of_sets_formatted.csv, sequence_of_sets_formatted_Won.csv)
-│  │  └─ corrupted/  (corrupted_medium_10pct.csv)
-│  └─ v3/
-│     ├─ raw/        (final_run.json)
-│     ├─ processed/  (sequence_of_sets_formatted.csv, sequence_of_sets_formatted_Won.csv)
-│     └─ corrupted/  (corrupted_medium_10pct.csv)
+│        ├─ player_data.json
+│        └─ screenshot1.png
 │
 ├─ preprocessing/
 │  ├─ v2/notebooks/
+│  │  ├─ corruptData.ipynb
+│  │  ├─ filterFailedINteractions.ipynb
 │  │  ├─ removeTheMove.ipynb
 │  │  ├─ removeTheSelectItem.ipynb
-│  │  ├─ filterFailedINteractions.ipynb
-│  │  ├─ seqOfSets.ipynb
-│  │  └─ corruptData.ipynb
+│  │  └─ seqOfSets.ipynb
 │  └─ v3/notebooks/
+│     ├─ corruptData.ipynb
+│     ├─ filterFailedINteractions.ipynb
 │     ├─ removeTheMove.ipynb
 │     ├─ removeTheSelectItem.ipynb
-│     ├─ filterFailedINteractions.ipynb
-│     ├─ seqOfSets.ipynb
-│     └─ corruptData.ipynb
+│     └─ seqOfSets.ipynb
 │
-├─ dependency_matrices/
-│  ├─ v2/
-│  │  ├─ Alg_Most_Rel_W.py
-│  │  ├─ newAlgV4.py
-│  │  └─ outputs/
-│  │     ├─ M_c_matrices_e1_e2_e5_e6_game_won.json
-│  │     └─ M_c_matrices_e1_e2_e5_e6_corrupted10pct.json
-│  └─ v3/
-│     ├─ Alg_Most_Rel_W.py
-│     ├─ newAlgV4.py
-│     └─ outputs/
-│        ├─ M_c_matrices_e1_e2_e5_e6_e11_game_won.json
-│        └─ M_c_matrices_e1_e2_e5_e6_e11_corrupted10pct.json
-│
-└─ clustering/
-   ├─ v2/
-   │  ├─ dbscan.py
-   │  ├─ custom_clustering.py
-   │  ├─ graphG.py
-   │  ├─ posets_n4.json
-   │  └─ hasse/
-   │     ├─ hasse.py
-   │     ├─ graphG_hasse.py
-   │     ├─ hasse_diagrams_n4.json
-   │     └─ hasse_diagrams_n5.json
-   └─ v3/
-      ├─ dbscan.py
-      ├─ custom_clustering.py
-      ├─ graphG.py
-      ├─ posets_n5.json
-      └─ hasse/
-         ├─ hasse.py
-         ├─ graphG_hasse.py
-         └─ hasse_diagrams_n5.json
+└─ training/
+   ├─ checkpoints/
+     ├─ v2/
+     │  ├─ final_run_v4.json
+     │  ├─ final_run_v5.json
+     │  ├─ ppo_project_gamev4.zip
+     │  └─ ppo_project_gamev5.zip
+     │   
+     └─ v3/
+        ├─ final_runv1.json
+        └─ ppo_project_gamev1.zip
+        
 ---
 ## ⚙️ Requirements
 

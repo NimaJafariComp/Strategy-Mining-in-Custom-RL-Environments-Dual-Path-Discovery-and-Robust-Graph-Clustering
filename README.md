@@ -79,7 +79,7 @@ rl-hasse-clustering/
 │  │  │  ├─ sequence_of_sets_formatted.csv
 │  │  │  └─ sequence_of_sets_formatted_Won.csv
 │  │  └─ raw/
-│  │     └─ final_run.json   # (compressed in .zip for upload if large)
+│  │     └─ final_run.json   
 │  └─ v3/
 │     ├─ corrupted/
 │     │  └─ corrupted_medium_10pct.csv
@@ -87,7 +87,7 @@ rl-hasse-clustering/
 │     │  ├─ sequence_of_sets_formatted.csv
 │     │  └─ sequence_of_sets_formatted_Won.csv
 │     └─ raw/
-│        └─ final_run.json   # (compressed in .zip for upload if large)
+│        └─ final_run.json   
 │
 ├─ dependency_matrices/
 │  ├─ v2/

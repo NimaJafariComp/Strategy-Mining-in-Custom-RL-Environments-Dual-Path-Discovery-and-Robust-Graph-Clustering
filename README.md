@@ -46,6 +46,8 @@ We introduce a full pipeline that goes from reinforcement learning trajectories 
 
 ```plaintext
 rl-hasse-clustering/
+├─ game-rl-strategy-mining-v2.pdf
+├─ game-rl-strategy-mining-v3.pdf
 ├─ LICENSE
 ├─ paper_link.txt
 ├─ README.md

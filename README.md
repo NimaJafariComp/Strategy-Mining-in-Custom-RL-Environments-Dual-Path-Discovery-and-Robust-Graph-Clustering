@@ -1,9 +1,9 @@
 # Strategy Mining in Custom RL Environments: Dual-Path Discovery and Robust Clustering via Hasse Diagrams
 
 This repository contains the code and data for our paper:  
-**“FROM DATA TO CONCEPTS VIA WIRING DIAGRAMS.”**  by Mohammadnima Jafari and Jason Lo
-📄 [Read the paper here](https://link-to-your-paper.com)
-
+**“FROM DATA TO CONCEPTS VIA WIRING DIAGRAMS.”** by Mohammadnima Jafari and Jason Lo  
+📄 [main paper publishes in journal here](https://link-to-your-paper.com)  
+📄 [Data note paper 1](https://doi.org/10.5281/zenodo.17315846), [Data note paper 2](https://doi.org/10.5281/zenodo.17315753)
 We introduce a full pipeline that goes from reinforcement learning trajectories in custom puzzle environments to interpretable procedural strategies using a novel **Hasse diagram–based clustering algorithm**. We compare this to standard unsupervised learning (DBSCAN, hierarchical clustering) and test robustness under controlled data corruption.
 
 ---
@@ -239,9 +239,9 @@ If you only want to experiment with clustering, you can use the precomputed data
 
 📊 Results (Summary)
 ```
-Game v2: Hasse finds one consensus strategy (door). DBSCAN/hierarchical split into noisy sub-variants. https://doi.org/10.5281/zenodo.17315846
+Game v2: Hasse finds one consensus strategy (door). DBSCAN/hierarchical split into noisy sub-variants. 
 
-Game v3: Hasse separates both winning strategies (door + treasure). DBSCAN/hierarchical show variants but mis-handle incidental pickups. https://doi.org/10.5281/zenodo.17315753
+Game v3: Hasse separates both winning strategies (door + treasure). DBSCAN/hierarchical show variants but mis-handle incidental pickups.
 
 Robustness: With 10% corrupted sequences, Hasse consensus unchanged. Distance-based methods fragment or degenerate.
 ```

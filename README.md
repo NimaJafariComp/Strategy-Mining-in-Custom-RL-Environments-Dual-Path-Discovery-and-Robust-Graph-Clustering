@@ -239,9 +239,9 @@ If you only want to experiment with clustering, you can use the precomputed data
 
 📊 Results (Summary)
 ```
-Game v2: Hasse finds one consensus strategy (door). DBSCAN/hierarchical split into noisy sub-variants.
+Game v2: Hasse finds one consensus strategy (door). DBSCAN/hierarchical split into noisy sub-variants. https://doi.org/10.5281/zenodo.17315846
 
-Game v3: Hasse separates both winning strategies (door + treasure). DBSCAN/hierarchical show variants but mis-handle incidental pickups.
+Game v3: Hasse separates both winning strategies (door + treasure). DBSCAN/hierarchical show variants but mis-handle incidental pickups. https://doi.org/10.5281/zenodo.17315753
 
 Robustness: With 10% corrupted sequences, Hasse consensus unchanged. Distance-based methods fragment or degenerate.
 ```

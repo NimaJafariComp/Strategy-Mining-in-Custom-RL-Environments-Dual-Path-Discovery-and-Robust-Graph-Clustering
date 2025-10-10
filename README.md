@@ -245,3 +245,11 @@ Game v3: Hasse separates both winning strategies (door + treasure). DBSCAN/hiera
 
 Robustness: With 10% corrupted sequences, Hasse consensus unchanged. Distance-based methods fragment or degenerate.
 ```
+
+
+
+## Acknowledgements
+
+This material is based upon work supported by the Air Force Office of Scientific Research under award number FA9550-24-1-0268.
+
+

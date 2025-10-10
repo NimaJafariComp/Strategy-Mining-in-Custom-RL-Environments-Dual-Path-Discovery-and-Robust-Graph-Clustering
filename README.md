@@ -1,7 +1,7 @@
 # Strategy Mining in Custom RL Environments: Dual-Path Discovery and Robust Clustering via Hasse Diagrams
 
 This repository contains the code and data for our paper:  
-**“From Reinforcement Learning Trajectories to Strategy Posets: Hasse-based Clustering of Dependency Matrices.”**  
+**“FROM DATA TO CONCEPTS VIA WIRING DIAGRAMS.”**  by Mohammadnima Jafari and Jason Lo
 📄 [Read the paper here](https://link-to-your-paper.com)
 
 We introduce a full pipeline that goes from reinforcement learning trajectories in custom puzzle environments to interpretable procedural strategies using a novel **Hasse diagram–based clustering algorithm**. We compare this to standard unsupervised learning (DBSCAN, hierarchical clustering) and test robustness under controlled data corruption.

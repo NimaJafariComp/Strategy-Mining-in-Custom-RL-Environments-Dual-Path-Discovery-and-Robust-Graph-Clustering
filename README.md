@@ -250,6 +250,6 @@ Robustness: With 10% corrupted sequences, Hasse consensus unchanged. Distance-ba
 
 ## Acknowledgements
 
-This material is based upon work supported by the Air Force Office of Scientific Research under award number FA9550-24-1-0268.
+This project is based upon work supported by the Air Force Office of Scientific Research under award number FA9550-24-1-0268.
 
 

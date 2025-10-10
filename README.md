@@ -1,4 +1,4 @@
-# RL-Hasse-Clustering
+# Strategy Mining in Custom RL Environments: Dual-Path Discovery and Robust Clustering via Hasse Diagrams
 
 This repository contains the code and data for our paper:  
 **“From Reinforcement Learning Trajectories to Strategy Posets: Hasse-based Clustering of Dependency Matrices.”**  

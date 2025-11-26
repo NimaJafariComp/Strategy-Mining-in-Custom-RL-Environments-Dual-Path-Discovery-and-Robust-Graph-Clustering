@@ -2,7 +2,7 @@
 
 This repository contains the code and data for our paper:  
 **“FROM DATA TO CONCEPTS VIA WIRING DIAGRAMS.”** by Mohammadnima Jafari and Jason Lo  
-📄 [main pre-print here](https://arxiv.org/abs/2511.20138))  
+📄 [main pre-print here](https://arxiv.org/abs/2511.20138) 
 📄 [Data note paper 1](https://doi.org/10.5281/zenodo.17315846), [Data note paper 2](https://doi.org/10.5281/zenodo.17315753)
 
 We introduce a full pipeline that goes from reinforcement learning trajectories in custom puzzle environments to interpretable procedural strategies using a novel **Hasse diagram–based clustering algorithm**. We compare this to standard unsupervised learning (DBSCAN, hierarchical clustering) and test robustness under controlled data corruption.
